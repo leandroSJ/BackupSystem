@@ -75,7 +75,7 @@ class Backup:
     def CopyMatriz(self):
         try:                                                            
             shutil.copytree(src=self.Path_01, dst=self.dst_01)
-            print('BACKUP DA MATRIZ FOI CONCLUIDO :)\n\n')
+
             file = open('Rotine_Daily.log', 'a')
                 #Date             
             file.write('Data: ' )
@@ -88,8 +88,7 @@ class Backup:
             file.write('\n')
 
             file.close()
-        except FileExistsError as e:
-            print('[MATRIZ] BACKUP JA FOI REALIZADO !!!\n\n')
+        except FileExistsError as e:            
             file = open('ERRO_Daily.log', 'a')
                 #Date        
             file.write('Data: ' )
@@ -100,8 +99,7 @@ class Backup:
             file.write('\n')
 
             file.close()
-        except PermissionError as e:
-            print('[MATRIZ] SEM PERMISSAO PARA ACESSAR O ARQUIVO !!!\n\n')
+        except PermissionError as e:            
             file = open('ERRO_Daily.log', 'a')
                 #Log files with info for backup        
             file.write('Data: ' )
@@ -113,13 +111,11 @@ class Backup:
             file.write('\n')
 
             file.close()
-        except FileNotFoundError as e:
-            print('[MATRIZ] ARQUIVO NAO ENCONTRADO!!!\n\n')
+        except FileNotFoundError as e:            
             file = open('ERRO_Daily.log', 'a')            
                 #Matriz        
             file.write('   Data: ' )
             file.write(datetime.now().strftime('%d/%m/%Y %H:%M:%S'))
-            file.write('\n')
             file.write('\n')
             file.write('[Matriz]\n')
             file.write('Arquivo nao encontrado :(\n')                
@@ -128,15 +124,9 @@ class Backup:
             file.close()
         
     def CopyFilial(self):
-        try:            
-            print('Data:')
-            print(datetime.now().strftime('%d/%m/%Y %H:%M:%S'))
-            print('\n\n')
-
-            print('Aguarde estou copiando os arquivos...\n\n')
-
+        try:                        
             shutil.copytree(src=self.Path_02, dst=self.dst_02) 
-            print('BACKUP DA FILIAL FOI CONCLUIDO :)\n\n')
+            
             file = open('Rotine_Daily.log', 'a')
                 #Date            
             file.write('Data: ' )
@@ -145,11 +135,10 @@ class Backup:
             file.write('Backup Filial: OK\n')        
             file.write('Nome do arquivo: ')        
             file.write(self.Date)
-            file.write('\n')
+            file.write('\n\n')
 
             file.close  ()
-        except FileExistsError as e:
-            print('[FILIAL] BACKUP JA FOI REALIZADO !!!\n\n')
+        except FileExistsError as e:            
             file = open('ERRO_Daily.log', 'a')                  
                 #Filial
             file.write('\n')
@@ -162,7 +151,7 @@ class Backup:
 
             file.close()
         except PermissionError as e:
-            print('[FILIAL] SEM PERMISSAO PARA ACESSAR O ARQUIVO')
+            
             file = open('ERRO_Daily.log', 'a')
                 #Filial        
             file.write('Data: ' )
@@ -174,7 +163,7 @@ class Backup:
 
             file.close()
         except FileNotFoundError as e:
-            print('[FILIAL] ARQUIVO NAO ENCONTRADO')
+            
             file = open('ERRO_Daily.log', 'a')
               #Date        
             file.write('\n')
@@ -250,7 +239,7 @@ class Backup:
             file.write('\n')
             file.close()
         except FileNotFoundError as e:
-            print('[RETAGUARDA] ARQUIVO NAO ENCONTRADO !!!\n\n')
+            
             file = open('ERRO_Daily.log', 'a')
             file.write('\n')
                 #Retaguarda
@@ -272,7 +261,7 @@ class Backup:
             file.write('Data: ' )
             file.write(datetime.now().strftime('%d/%m/%Y %H:%M:%S'))
             file.write('\n')
-            file.write('Backup KW: OK\n\n')            
+            file.write('Backup KW: OK\n')            
             
             file.close()
         except FileExistsError as e:
@@ -287,7 +276,7 @@ class Backup:
             file.write('\n')
             file.close()
         except FileNotFoundError as e:
-            print('[KW] ARQUIVO NAO ENCONTRADO !!!\n\n')
+            
             file = open('ERRO_Daily.log', 'a')
             file.write('\n')
                 #Retaguarda
@@ -302,5 +291,5 @@ BC = Backup()
 BC.CopyFilial()                                                                                                                     
 BC.CopyAntonioJorge()
 BC.CopyMatriz()
-BC.CopyRetaguarda()
 BC.CopyKW()
+BC.CopyRetaguarda()
