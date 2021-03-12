@@ -1,8 +1,11 @@
 #from datetime import date
-from datetime import datetime, date
-from datetime import timedelta
+from datetime import datetime, date, timedelta
+#from datetime import timedelta
 import shutil
-import sys
+import time
+import schedule
+import threading
+
 
 class Backup:
         #Date to day
@@ -124,7 +127,8 @@ class Backup:
             file.close()
         
     def CopyFilial(self):
-        try:                        
+        try:
+            print('\n|Copiando arquivos....')                        
             shutil.copytree(src=self.Path_02, dst=self.dst_02) 
             
             file = open('Rotine_Daily.log', 'a')
@@ -286,10 +290,21 @@ class Backup:
             file.write('[KW]\n')
             file.write('Arquivo nao encontrado :(\n')               
             file.write('\n')
+
+    def run_threaded(self, job_func):
+        run_mult_task = threading.Thread(target=job_func)
+        run_mult_task.start()
 BC = Backup()                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
 
-BC.CopyFilial()                                                                                                                     
-BC.CopyAntonioJorge()
-BC.CopyMatriz()
-BC.CopyKW()
-BC.CopyRetaguarda()
+schedule.every().day.at('07:40')(BC.run_threaded, BC.CopyFilial)
+schedule.every().day.at('07:40')(BC.run_threaded, BC.CopyAntonioJorge)
+schedule.every().day.at('07:40')(BC.run_threaded, BC.CopyMatriz)
+schedule.every().day.at('07:40')(BC.run_threaded, BC.CopyKW)
+schedule.every().day.at('07:40')do(BC.run_threaded, BC.CopyRetaguarda)
+
+while 1:
+    schedule.run_pending()
+    time.sleep(1)
+    
+    #make file .exe on terminal
+#pyinstaller --onefile --icon=logo-marca-filial.ico .\BackupFiles.py
