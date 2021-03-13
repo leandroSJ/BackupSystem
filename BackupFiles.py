@@ -1,11 +1,8 @@
-#from datetime import date
 from datetime import datetime, date, timedelta
-#from datetime import timedelta
 import shutil
 import time
 import schedule
 import threading
-
 
 class Backup:
         #Date to day
@@ -13,9 +10,7 @@ class Backup:
     Date = today - timedelta(days = 1)    
     Date_transform = today.strftime("%d-%m-%y")
     Date = str(Date)
-    Date_transform = str(Date_transform)
-    exit_ex = 0
-
+    Date_transform = str(Date_transform)    
         #Path to find file Matriz
     Path_01 = r'X:\\NFCERESP\\14800340000101\\'
     Path_01 += Date
@@ -290,21 +285,19 @@ class Backup:
             file.write('[KW]\n')
             file.write('Arquivo nao encontrado :(\n')               
             file.write('\n')
+            file.close()
 
     def run_threaded(self, job_func):
         run_mult_task = threading.Thread(target=job_func)
         run_mult_task.start()
 BC = Backup()                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
 
-schedule.every().day.at('07:40')(BC.run_threaded, BC.CopyFilial)
-schedule.every().day.at('07:40')(BC.run_threaded, BC.CopyAntonioJorge)
-schedule.every().day.at('07:40')(BC.run_threaded, BC.CopyMatriz)
-schedule.every().day.at('07:40')(BC.run_threaded, BC.CopyKW)
-schedule.every().day.at('07:40')do(BC.run_threaded, BC.CopyRetaguarda)
+schedule.every().day.at('07:06').do(BC.run_threaded, BC.CopyFilial)
+schedule.every().day.at('07:06').do(BC.run_threaded, BC.CopyAntonioJorge)
+schedule.every().day.at('07:06').do(BC.run_threaded, BC.CopyMatriz)
+schedule.every().day.at('07:06').do(BC.run_threaded, BC.CopyKW)
+schedule.every().day.at('07:06').do(BC.run_threaded, BC.CopyRetaguarda)
 
 while 1:
     schedule.run_pending()
     time.sleep(1)
-    
-    #make file .exe on terminal
-#pyinstaller --onefile --icon=logo-marca-filial.ico .\BackupFiles.py
