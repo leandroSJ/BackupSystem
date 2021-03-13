@@ -301,3 +301,5 @@ schedule.every().day.at('07:06').do(BC.run_threaded, BC.CopyRetaguarda)
 while 1:
     schedule.run_pending()
     time.sleep(1)
+
+    #teste
